@@ -1,27 +1,34 @@
 import { Engine, Loader, DisplayMode } from 'excalibur';
-import { LevelOne } from './scenes/level-one/level-one';
-import { Player } from './actors/player/player';
+import { RoomMainScene } from './scenes/room-main-scene';
 import { Resources } from './resources';
+import { GameState } from './game-state';
+import { RoomInspectScene } from './scenes/room-inspect-scene';
 
 /**
  * Managed game class
  */
 class Game extends Engine {
-  private player: Player;
-  private levelOne: LevelOne;
+  private roomMainScene: RoomMainScene;
+  private roomInspectScene: RoomInspectScene;
+  private state: GameState;
 
   constructor() {
-    super({ displayMode: DisplayMode.FullScreen });
+    super({
+      displayMode: DisplayMode.Position,
+      position: { left: 'calc(50% - 320px)', top: 'calc(50% - 240px)'},
+      viewport: { width: 640, height: 480 }, // 720p
+      resolution: { width: 1280, height: 720 }, // 720p
+    });
   }
 
   public start() {
+    this.state = new GameState();
 
-    // Create new scene with a player
-    this.levelOne = new LevelOne(this);
-    this.player = new Player();
-    this.levelOne.add(this.player);
+    this.roomMainScene = new RoomMainScene(this, this.state);
+    this.roomInspectScene = new RoomInspectScene(this, this.state);
 
-    game.add('levelOne', this.levelOne);
+    game.add('roomMain', this.roomMainScene);
+    game.add('roomInspect', this.roomInspectScene);
 
     // Automatically load all default resources
     const loader = new Loader(Object.values(Resources));
@@ -32,5 +39,5 @@ class Game extends Engine {
 
 const game = new Game();
 game.start().then(() => {
-  game.goToScene('levelOne');
+  game.goToScene('roomMain');
 });
