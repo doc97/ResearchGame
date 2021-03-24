@@ -15,8 +15,8 @@ class Game extends Engine {
   constructor() {
     super({
       displayMode: DisplayMode.Position,
-      position: { left: 'calc(50% - 320px)', top: 'calc(50% - 240px)'},
-      viewport: { width: 640, height: 480 }, // 720p
+      position: { left: 'calc(50% - 640px)', top: 'calc(50% - 360px)'},
+      viewport: { width: 1280, height: 720 }, // 720p
       resolution: { width: 1280, height: 720 }, // 720p
     });
   }
