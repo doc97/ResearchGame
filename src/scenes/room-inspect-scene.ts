@@ -15,7 +15,7 @@ export class RoomInspectScene extends Scene {
     this.state = state;
   }
 
-  public onInitialize() {
+  public onActivate() {
     switch (this.state.room) {
       case 'blue':
         this.background = new RoomBlue(this.game, this.state);
@@ -34,6 +34,11 @@ export class RoomInspectScene extends Scene {
         this.state.room = 'none';
         this.game.goToScene('roomMain');
       }
-    })
+    });
+  }
+
+  public onDeactivate() {
+    this.remove(this.background);
+    this.game.input.keyboard.off('press');
   }
 }
