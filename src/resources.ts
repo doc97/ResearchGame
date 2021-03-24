@@ -3,9 +3,10 @@ import sword from './images/sword.png';
 import roomRed from './images/room-red.png';
 import roomBlue from './images/room-blue.png';
 import roomGreen from './images/room-green.png';
-import buttonCharactersDefault from "./images/button-characters-default.png";
-import buttonCharactersHover from "./images/button-characters-hover.png";
-import buttonCharactersDown from "./images/button-characters-down.png";
+import buttonCharactersDefault from './images/button-characters-default.png';
+import buttonCharactersHover from './images/button-characters-hover.png';
+import buttonCharactersDown from './images/button-characters-down.png';
+import characterCard from './images/character-card.png'
 
 /**
  * Default global resource dictionary. This gets loaded immediately
@@ -19,6 +20,7 @@ const Resources = {
     ButtonCharactersDefault: new Texture(buttonCharactersDefault),
     ButtonCharactersHover: new Texture(buttonCharactersHover),
     ButtonCharactersDown: new Texture(buttonCharactersDown),
+    CharacterCard: new Texture(characterCard),
 }
 
 export { Resources }

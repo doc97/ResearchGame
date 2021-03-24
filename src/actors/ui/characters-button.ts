@@ -13,9 +13,9 @@ export class CharactersButton extends GameActor {
   }
 
   onInitialize() {
-    this.addDrawing('default', Resources.Button.asSprite());
-    this.addDrawing('hover', Resources.ButtonHover.asSprite());
-    this.addDrawing('down', Resources.ButtonDown.asSprite());
+    this.addDrawing('default', Resources.ButtonCharactersDefault.asSprite());
+    this.addDrawing('hover', Resources.ButtonCharactersHover.asSprite());
+    this.addDrawing('down', Resources.ButtonCharactersDown.asSprite());
 
     this.on('pointerdown', () => this.setDrawing('down'));
     this.on('pointerup', (evt: Input.PointerEvent) => {

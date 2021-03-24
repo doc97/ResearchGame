@@ -1,4 +1,4 @@
-import { Actor, Engine, Input, vec } from 'excalibur';
+import { Engine, Input, vec } from 'excalibur';
 import { GameState } from '../../game-state';
 import { Resources } from '../../resources';
 import { GameActor } from '../game-actor';
