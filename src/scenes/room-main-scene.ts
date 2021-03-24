@@ -1,5 +1,6 @@
 import { Engine, Scene, vec } from 'excalibur';
 import { RoomBlueIcon, RoomGreenIcon, RoomRedIcon } from '../actors/room-icons';
+import { CharactersButton } from '../actors/ui';
 import { GameState } from '../game-state';
 
 /**
@@ -11,6 +12,7 @@ export class RoomMainScene extends Scene {
   private roomRed: RoomRedIcon;
   private roomGreen: RoomGreenIcon;
   private roomBlue: RoomBlueIcon;
+  private button: CharactersButton;
 
   public constructor(engine: Engine, state: GameState) {
     super(engine);
@@ -30,5 +32,9 @@ export class RoomMainScene extends Scene {
     this.roomBlue = new RoomBlueIcon(this.engine, this.state);
     this.roomBlue.pos = vec(1000, 200);
     this.add(this.roomBlue);
+
+    this.button = new CharactersButton(this.engine, this.state);
+    this.button.pos = vec(this.engine.drawWidth / 2, this.engine.drawHeight - 100);
+    this.add(this.button);
   }
 }

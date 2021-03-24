@@ -1,8 +1,7 @@
 import { Engine, Loader, DisplayMode } from 'excalibur';
-import { RoomMainScene } from './scenes/room-main-scene';
 import { Resources } from './resources';
 import { GameState } from './game-state';
-import { RoomInspectScene } from './scenes/room-inspect-scene';
+import { RoomMainScene, RoomInspectScene, ViewCharactersScene } from './scenes';
 
 /**
  * Managed game class
@@ -10,6 +9,7 @@ import { RoomInspectScene } from './scenes/room-inspect-scene';
 class Game extends Engine {
   private roomMainScene: RoomMainScene;
   private roomInspectScene: RoomInspectScene;
+  private viewCharactersScene: ViewCharactersScene;
   private state: GameState;
 
   constructor() {
@@ -26,9 +26,11 @@ class Game extends Engine {
 
     this.roomMainScene = new RoomMainScene(this, this.state);
     this.roomInspectScene = new RoomInspectScene(this, this.state);
+    this.viewCharactersScene = new ViewCharactersScene(this, this.state);
 
     game.add('roomMain', this.roomMainScene);
     game.add('roomInspect', this.roomInspectScene);
+    game.add('viewCharacters', this.viewCharactersScene);
 
     // Automatically load all default resources
     const loader = new Loader(Object.values(Resources));
