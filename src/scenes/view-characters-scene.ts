@@ -1,6 +1,8 @@
 import { Engine, Scene, Input, vec } from "excalibur";
+import { switchScene } from ".";
 import { CharacterCard } from "../actors";
 import { GameState } from "../game-state";
+import { RoomMainScene } from "./room-main-scene";
 
 export class ViewCharactersScene extends Scene {
   private game: Engine;
@@ -20,7 +22,7 @@ export class ViewCharactersScene extends Scene {
     this.game.input.keyboard.on('press', (evt: Input.KeyEvent) => {
       if (evt.key === Input.Keys.Esc) {
         this.state.currentRoom = null;
-        this.game.goToScene('roomMain');
+        switchScene(this.game, new RoomMainScene(this.game, this.state));
       }
     });
   }
@@ -28,6 +30,7 @@ export class ViewCharactersScene extends Scene {
   public onDeactivate() {
     this.game.input.keyboard.off('press');
     this.cards.forEach(c => this.remove(c));
+    this.cards = [];
   }
 
   private createCards(): void {

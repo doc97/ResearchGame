@@ -1,6 +1,7 @@
 import { Engine, Input, vec } from 'excalibur';
 import { GameState } from '../../game-state';
 import { Resources } from '../../resources';
+import { RoomInspectScene, switchScene } from '../../scenes';
 import { GameActor } from '../game-actor';
 
 export class RoomRedIcon extends GameActor {
@@ -19,7 +20,7 @@ export class RoomRedIcon extends GameActor {
     this.on('pointerup', (evt: Input.PointerEvent) => {
       if (this.body.collider.shape.contains(evt.pos)) {
         this.state.currentRoom = 'red';
-        this.game.goToScene('roomInspect');
+        switchScene(this.game, new RoomInspectScene(this.game, this.state));
       }
     });
     this.on('pointerenter', () => this.scale = vec(0.3, 0.3));

@@ -1,9 +1,11 @@
 import { Actor, Engine, Scene, Input, vec } from "excalibur";
+import { switchScene } from ".";
 import { Hannah } from "../actors/characters";
 import { RoomBlue } from "../actors/rooms/room-blue";
 import { RoomGreen } from "../actors/rooms/room-green";
 import { RoomRed } from "../actors/rooms/room-red";
 import { GameState } from "../game-state";
+import { RoomMainScene } from "./room-main-scene";
 
 export class RoomInspectScene extends Scene {
   private game: Engine;
@@ -25,7 +27,7 @@ export class RoomInspectScene extends Scene {
     this.game.input.keyboard.on('press', (evt: Input.KeyEvent) => {
       if (evt.key === Input.Keys.Esc) {
         this.state.currentRoom = null;
-        this.game.goToScene('roomMain');
+        switchScene(this.game, new RoomMainScene(this.game, this.state));
       }
     });
   }

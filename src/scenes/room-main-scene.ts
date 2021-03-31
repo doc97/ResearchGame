@@ -20,7 +20,7 @@ export class RoomMainScene extends Scene {
     this.state = state;
   }
 
-  public onInitialize() {
+  public onActivate() {
     this.roomRed = new RoomRedIcon(this.engine, this.state);
     this.roomRed.pos = vec(200, 200);
     this.add(this.roomRed);
@@ -36,5 +36,12 @@ export class RoomMainScene extends Scene {
     this.button = new CharactersButton(this.engine, this.state);
     this.button.pos = vec(this.engine.drawWidth / 2, this.engine.drawHeight - 100);
     this.add(this.button);
+  }
+
+  public onDeactivate() {
+    this.remove(this.roomRed);
+    this.remove(this.roomGreen);
+    this.remove(this.roomBlue);
+    this.remove(this.button);
   }
 }

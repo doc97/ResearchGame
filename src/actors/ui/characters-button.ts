@@ -1,6 +1,7 @@
 import { Engine, Input, vec } from 'excalibur';
 import { GameState } from '../../game-state';
 import { Resources } from '../../resources';
+import { switchScene, ViewCharactersScene } from '../../scenes';
 import { GameActor } from '../game-actor';
 
 export class CharactersButton extends GameActor {
@@ -12,7 +13,7 @@ export class CharactersButton extends GameActor {
     });
   }
 
-  onInitialize() {
+  public onInitialize() {
     this.addDrawing('default', Resources.ButtonCharactersDefault.asSprite());
     this.addDrawing('hover', Resources.ButtonCharactersHover.asSprite());
     this.addDrawing('down', Resources.ButtonCharactersDown.asSprite());
@@ -21,10 +22,17 @@ export class CharactersButton extends GameActor {
     this.on('pointerup', (evt: Input.PointerEvent) => {
       if (this.body.collider.shape.contains(evt.pos)) {
         this.setDrawing('hover');
-        this.game.goToScene('viewCharacters');
+        switchScene(this.game, new ViewCharactersScene(this.game, this.state));
       }
     });
     this.on('pointerenter', () => this.setDrawing('hover'));
     this.on('pointerleave', () => this.setDrawing('default'));
+  }
+
+  public onPostKill() {
+    this.off('pointerdown');
+    this.off('pointerup');
+    this.off('pointerenter');
+    this.off('pointerleave');
   }
 }
