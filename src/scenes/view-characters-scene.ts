@@ -19,7 +19,7 @@ export class ViewCharactersScene extends Scene {
     
     this.game.input.keyboard.on('press', (evt: Input.KeyEvent) => {
       if (evt.key === Input.Keys.Esc) {
-        this.state.room = 'none';
+        this.state.currentRoom = null;
         this.game.goToScene('roomMain');
       }
     });

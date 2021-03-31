@@ -6,7 +6,8 @@ import roomGreen from './images/room-green.png';
 import buttonCharactersDefault from './images/button-characters-default.png';
 import buttonCharactersHover from './images/button-characters-hover.png';
 import buttonCharactersDown from './images/button-characters-down.png';
-import characterCard from './images/character-card.png'
+import characterCard from './images/character-card.png';
+import hannahWalk from './images/hannah-walk.png';
 
 /**
  * Default global resource dictionary. This gets loaded immediately
@@ -21,6 +22,7 @@ const Resources = {
     ButtonCharactersHover: new Texture(buttonCharactersHover),
     ButtonCharactersDown: new Texture(buttonCharactersDown),
     CharacterCard: new Texture(characterCard),
+    HannahWalk: new Texture(hannahWalk),
 }
 
 export { Resources }

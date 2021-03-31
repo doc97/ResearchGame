@@ -18,7 +18,7 @@ export class RoomRedIcon extends GameActor {
     this.enableCapturePointer = true;
     this.on('pointerup', (evt: Input.PointerEvent) => {
       if (this.body.collider.shape.contains(evt.pos)) {
-        this.state.room = 'red';
+        this.state.currentRoom = 'red';
         this.game.goToScene('roomInspect');
       }
     });

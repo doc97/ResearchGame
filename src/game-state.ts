@@ -1,5 +1,15 @@
+export type RoomId = 'red' | 'green' | 'blue';
+export type CharacterId = 'hannah' | 'maggie' | 'chris' | 'emma' | 'philip';
 
 export class GameState {
-  public room: 'red' | 'green' | 'blue' | 'none' = 'none';
-  public unlockedCharacters: string[] = ['maggie', 'chris', 'emma', 'philip'];
+  // Data
+  public readonly ROOMS: RoomId[] = ['red', 'green', 'blue'];
+  public readonly CHARACTERS: CharacterId[] = ['maggie', 'chris', 'emma', 'philip'];
+
+  // State
+  public currentRoom: RoomId | null = null;
+  public unlockedCharacters: CharacterId[] = ['hannah'];
+  public characterRooms: Record<CharacterId, RoomId> = {
+    'hannah': 'red'
+  } as Record<CharacterId, RoomId>;
 }

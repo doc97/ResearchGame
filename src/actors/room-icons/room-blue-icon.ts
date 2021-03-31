@@ -19,7 +19,7 @@ export class RoomBlueIcon extends GameActor {
     this.on('pointerup', (evt: Input.PointerEvent) => {
 
       if (this.body.collider.shape.contains(evt.pos)) {
-        this.state.room = 'blue';
+        this.state.currentRoom = 'blue';
         this.game.goToScene('roomInspect');
       }
     });
