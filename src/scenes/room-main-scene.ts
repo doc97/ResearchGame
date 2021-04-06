@@ -1,6 +1,7 @@
 import { Engine, Scene, vec } from 'excalibur';
 import { RoomBlueIcon, RoomGreenIcon, RoomRedIcon } from '../actors/room-icons';
 import { CharactersButton } from '../actors/ui';
+import { Background } from '../actors';
 import { GameState } from '../game-state';
 
 /**
@@ -9,6 +10,8 @@ import { GameState } from '../game-state';
 export class RoomMainScene extends Scene {
   private engine: Engine;
   private state: GameState;
+
+  private background: Background;
   private roomRed: RoomRedIcon;
   private roomGreen: RoomGreenIcon;
   private roomBlue: RoomBlueIcon;
@@ -21,6 +24,10 @@ export class RoomMainScene extends Scene {
   }
 
   public onActivate() {
+    this.background = new Background(this.engine, this.state);
+    this.background.pos = vec(this.engine.drawWidth / 2, this.engine.drawHeight / 2);
+    this.add(this.background);
+
     this.roomRed = new RoomRedIcon(this.engine, this.state);
     this.roomRed.pos = vec(200, 200);
     this.add(this.roomRed);
