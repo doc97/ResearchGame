@@ -1,5 +1,6 @@
 import { Actor, Engine, Scene, Input, vec } from "excalibur";
 import { switchScene } from ".";
+import { Background } from "../actors";
 import { Hannah } from "../actors/characters";
 import { RoomBlue } from "../actors/rooms/room-blue";
 import { RoomGreen } from "../actors/rooms/room-green";
@@ -10,7 +11,8 @@ import { RoomMainScene } from "./room-main-scene";
 export class RoomInspectScene extends Scene {
   private game: Engine;
   private state: GameState;
-  private background: Actor;
+  private background: Background;
+  private room: Actor;
   private characters: Hannah[];
 
   public constructor(game: Engine, state: GameState) {
@@ -22,6 +24,7 @@ export class RoomInspectScene extends Scene {
 
   public onActivate() {
     this.createBackground();
+    this.createRoom();
     this.createCharacters();
 
     this.game.input.keyboard.on('press', (evt: Input.KeyEvent) => {
@@ -34,24 +37,31 @@ export class RoomInspectScene extends Scene {
 
   public onDeactivate() {
     this.remove(this.background);
+    this.remove(this.room);
     this.characters.forEach(c => this.remove(c));
     this.characters = [];
     this.game.input.keyboard.off('press');
   }
 
   private createBackground(): void {
+    this.background = new Background(this.game, this.state);
+    this.background.pos = vec(this.game.drawWidth / 2, this.game.drawHeight / 2);
+    this.add(this.background);
+  }
+
+  private createRoom(): void {
     switch (this.state.currentRoom) {
       case 'blue':
-        this.background = new RoomBlue(this.game, this.state);
+        this.room = new RoomBlue(this.game, this.state);
         break;
       case 'green':
-        this.background = new RoomGreen(this.game, this.state);
+        this.room = new RoomGreen(this.game, this.state);
         break;
       case 'red':
-        this.background = new RoomRed(this.game, this.state);
+        this.room = new RoomRed(this.game, this.state);
         break;
     }
-    this.add(this.background);
+    this.add(this.room);
   }
 
   private createCharacters(): void {

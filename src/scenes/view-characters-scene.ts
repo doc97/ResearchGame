@@ -1,6 +1,6 @@
 import { Engine, Scene, Input, vec } from "excalibur";
 import { switchScene } from ".";
-import { CharacterCard } from "../actors";
+import { Background, CharacterCard } from "../actors";
 import { GameState, RoomId } from "../game-state";
 import { RoomMainScene } from "./room-main-scene";
 
@@ -8,6 +8,7 @@ export class ViewCharactersScene extends Scene {
   private game: Engine;
   private state: GameState;
   private room: RoomId;
+  private background: Background;
   private cards: CharacterCard[];
 
   public constructor(game: Engine, state: GameState, room: RoomId) {
@@ -18,6 +19,10 @@ export class ViewCharactersScene extends Scene {
   }
 
   public onActivate() {
+    this.background = new Background(this.game, this.state);
+    this.background.pos = vec(this.game.drawWidth / 2, this.game.drawHeight / 2);
+    this.add(this.background);
+
     this.createCards();
     this.cards.forEach(c => this.add(c));
     
@@ -31,6 +36,7 @@ export class ViewCharactersScene extends Scene {
 
   public onDeactivate() {
     this.game.input.keyboard.off('press');
+    this.remove(this.background);
     this.cards.forEach(c => this.remove(c));
     this.cards = [];
   }
