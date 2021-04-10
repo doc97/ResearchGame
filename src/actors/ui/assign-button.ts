@@ -1,10 +1,11 @@
 import { Engine, Input, vec } from 'excalibur';
 import { GameState } from '../../game-state';
 import { Resources } from '../../resources';
-import { switchScene, ViewCharactersScene } from '../../scenes';
 import { GameActor } from '../game-actor';
 
-export class CharactersButton extends GameActor {
+export class AssignButton extends GameActor {
+  private toggled: boolean;
+
   constructor(game: Engine, state: GameState) {
     super(game, state, {
       width: 256,
@@ -18,21 +19,27 @@ export class CharactersButton extends GameActor {
     this.addDrawing('hover', Resources.ButtonCharactersHover.asSprite());
     this.addDrawing('down', Resources.ButtonCharactersDown.asSprite());
 
-    this.on('pointerdown', () => this.setDrawing('down'));
     this.on('pointerup', (evt: Input.PointerEvent) => {
       if (this.body.collider.shape.contains(evt.pos)) {
-        this.setDrawing('hover');
-        switchScene(this.game, new ViewCharactersScene(this.game, this.state));
+        this.toggle();
       }
     });
-    this.on('pointerenter', () => this.setDrawing('hover'));
-    this.on('pointerleave', () => this.setDrawing('default'));
+
+    this.setToggled(this.state.mode === 'assign');
   }
 
   public onPostKill() {
-    this.off('pointerdown');
     this.off('pointerup');
-    this.off('pointerenter');
-    this.off('pointerleave');
+  }
+
+  private toggle(): void {
+    this.setToggled(!this.toggled);
+  }
+  
+  private setToggled(t: boolean): void {
+    this.toggled = t;
+    this.setDrawing(this.toggled ? 'down' : 'default');
+    this.state.mode = this.toggled ? 'assign' : 'view';
+    console.log(`Changed mode to: ${this.state.mode}`);
   }
 }

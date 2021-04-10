@@ -12,4 +12,5 @@ export class GameState {
   public characterRooms: Record<CharacterId, RoomId> = {
     'hannah': 'red'
   } as Record<CharacterId, RoomId>;
+  public mode: 'view' | 'assign' = 'view';
 }

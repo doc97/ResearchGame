@@ -1,1 +1,1 @@
-export { CharactersButton } from './characters-button';
+export { AssignButton } from './assign-button';
