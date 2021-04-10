@@ -6,7 +6,7 @@ import roomGreen from './images/room-green.png';
 import buttonCharactersDefault from './images/button-characters-default.png';
 import buttonCharactersHover from './images/button-characters-hover.png';
 import buttonCharactersDown from './images/button-characters-down.png';
-import characterCard from './images/character-card.png';
+import characterCard from './images/character-card-face.png';
 import hannahWalk from './images/hannah-walk.png';
 import background from './images/background.png';
 

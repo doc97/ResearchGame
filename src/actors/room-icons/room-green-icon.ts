@@ -23,7 +23,7 @@ export class RoomGreenIcon extends GameActor {
           this.state.currentRoom = 'green';
           switchScene(this.game, new RoomInspectScene(this.game, this.state));
         } else {
-          switchScene(this.game, new ViewCharactersScene(this.game, this.state));
+          switchScene(this.game, new ViewCharactersScene(this.game, this.state, 'green'));
         }
       }
     });

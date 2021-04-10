@@ -7,9 +7,6 @@ import { RoomMainScene, RoomInspectScene, ViewCharactersScene, switchScene } fro
  * Managed game class
  */
 class Game extends Engine {
-  private roomMainScene: RoomMainScene;
-  private roomInspectScene: RoomInspectScene;
-  private viewCharactersScene: ViewCharactersScene;
   private state: GameState;
 
   constructor() {
@@ -23,16 +20,6 @@ class Game extends Engine {
 
   public start() {
     this.state = new GameState();
-
-    this.roomMainScene = new RoomMainScene(this, this.state);
-    this.roomInspectScene = new RoomInspectScene(this, this.state);
-    this.viewCharactersScene = new ViewCharactersScene(this, this.state);
-
-    /*
-    game.add('roomMain', this.roomMainScene);
-    game.add('roomInspect', this.roomInspectScene);
-    game.add('viewCharacters', this.viewCharactersScene);
-    */
 
     // Automatically load all default resources
     const loader = new Loader(Object.values(Resources));

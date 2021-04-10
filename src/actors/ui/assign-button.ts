@@ -40,6 +40,5 @@ export class AssignButton extends GameActor {
     this.toggled = t;
     this.setDrawing(this.toggled ? 'down' : 'default');
     this.state.mode = this.toggled ? 'assign' : 'view';
-    console.log(`Changed mode to: ${this.state.mode}`);
   }
 }

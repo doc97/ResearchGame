@@ -1,18 +1,20 @@
 import { Engine, Scene, Input, vec } from "excalibur";
 import { switchScene } from ".";
 import { CharacterCard } from "../actors";
-import { GameState } from "../game-state";
+import { GameState, RoomId } from "../game-state";
 import { RoomMainScene } from "./room-main-scene";
 
 export class ViewCharactersScene extends Scene {
   private game: Engine;
   private state: GameState;
+  private room: RoomId;
   private cards: CharacterCard[];
 
-  public constructor(game: Engine, state: GameState) {
+  public constructor(game: Engine, state: GameState, room: RoomId) {
     super(game);
     this.game = game;
     this.state = state;
+    this.room = room;
   }
 
   public onActivate() {
@@ -35,10 +37,15 @@ export class ViewCharactersScene extends Scene {
 
   private createCards(): void {
     this.cards = [];
-    for (let i = 0; i < this.state.unlockedCharacters.length; i++) {
-      // TODO: Character specific card
-      this.cards.push(new CharacterCard(this.game, this.state));
+
+    const characters = this.state.unlockedCharacters
+      .filter(c => this.state.characterRooms[c] === undefined);
+    console.log(`Characters: ${characters.toString()}`);
+    for (const char of characters) {
+      const card = new CharacterCard(this.game, this.state, char, this.room);
+      this.cards.push(card);
     }
+
     for (let i = 0; i < this.cards.length; i++) {
       this.cards[i].pos = vec(128 + i * 225, 300);
     }

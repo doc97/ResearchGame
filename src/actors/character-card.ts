@@ -1,16 +1,24 @@
 import { Engine, Input, vec } from 'excalibur';
-import { GameState } from '../game-state';
+import { CharacterId, GameState, RoomId } from '../game-state';
 import { Resources } from '../resources';
+import { RoomMainScene, switchScene } from '../scenes';
 import { GameActor } from './game-actor';
 
+const INITIAL_SCALE = vec(0.125, 0.125);
+
 export class CharacterCard extends GameActor {
-  constructor(game: Engine, state: GameState) {
+  private name: CharacterId;
+  private room: RoomId;
+
+  constructor(game: Engine, state: GameState, name: CharacterId, room: RoomId) {
     super(game, state, {
-      width: 384,
-      height: 512,
+      width: Resources.CharacterCard.width,
+      height: Resources.CharacterCard.height,
       anchor: vec(0.5, 0.5),
-      scale: vec(0.5, 0.5),
+      scale: INITIAL_SCALE
     });
+    this.name = name;
+    this.room = room;
   }
 
   onInitialize() {
@@ -18,11 +26,13 @@ export class CharacterCard extends GameActor {
 
     this.on('pointerup', (evt: Input.PointerEvent) => {
       if (this.body.collider.shape.contains(evt.pos)) {
-        // TODO: Some action
+        // Assign character to room
+        this.state.characterRooms[this.name] = this.room;
+        switchScene(this.game, new RoomMainScene(this.game, this.state));
       }
     });
-    this.on('pointerenter', () => this.scale = vec(0.55, 0.55));
-    this.on('pointerleave', () => this.scale = vec(0.5, 0.5));
+    this.on('pointerenter', () => this.scale = INITIAL_SCALE.scale(1.1));
+    this.on('pointerleave', () => this.scale = INITIAL_SCALE);
   }
 
   onPostKill() {
